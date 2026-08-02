@@ -4,12 +4,14 @@ import Link from "next/link";
 import { ArrowBendUpLeft, List, X } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import type { PostSection } from "@/content/posts";
+import { usePaperExit } from "@/components/PageMotion";
 
 type Props = {
   sections: PostSection[];
 };
 
 export function PostNavigation({ sections }: Props) {
+  const exitWithPaper = usePaperExit();
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(sections[0]?.id ?? "");
   const [showBackTop, setShowBackTop] = useState(false);
@@ -49,10 +51,19 @@ export function PostNavigation({ sections }: Props) {
     setOpen(false);
   };
 
+  const returnHome = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+
+    event.preventDefault();
+    exitWithPaper("/");
+  };
+
   return (
     <>
       <aside className="article-sidebar" aria-label="文章导航">
-        <Link className="back-link" href="/">
+        <Link className="back-link" href="/" onClick={returnHome}>
           <ArrowBendUpLeft aria-hidden="true" size={14} weight="light" />
           首页
         </Link>
@@ -87,7 +98,10 @@ export function PostNavigation({ sections }: Props) {
 
       {open ? (
         <nav id="mobile-menu-panel" className="mobile-menu-panel" aria-label="移动端文章导航">
-          <Link href="/" onClick={() => setOpen(false)}>
+          <Link href="/" onClick={(event) => {
+            setOpen(false);
+            returnHome(event);
+          }}>
             首页
           </Link>
           {sections.map((section) => (

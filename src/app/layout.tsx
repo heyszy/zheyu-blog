@@ -4,6 +4,7 @@ import {
   La_Belle_Aurore,
   Libre_Caslon_Text,
 } from "next/font/google";
+import { PageMotionProvider } from "@/components/PageMotion";
 import "./globals.css";
 
 const inter = Inter({
@@ -63,7 +64,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main">
           跳到正文
         </a>
-        {children}
+        <PageMotionProvider>{children}</PageMotionProvider>
       </body>
     </html>
   );
