@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "zheyu-blog",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-08-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "routes": [
+    {
+      "pattern": "zheyu.me",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
