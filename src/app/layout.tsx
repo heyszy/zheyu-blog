@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import {
-  Caveat,
   Inter,
   Libre_Caslon_Text,
+  Sacramento,
 } from "next/font/google";
 import { PageMotionProvider } from "@/components/PageMotion";
 import "./globals.css";
@@ -13,10 +13,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const signature = Caveat({
+const signature = Sacramento({
   variable: "--font-signature",
   subsets: ["latin"],
-  weight: "variable",
+  weight: "400",
   display: "swap",
 });
 
