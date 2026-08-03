@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowBendUpLeft, List, X } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PostSection } from "@/content/posts";
 import { usePaperMotion } from "@/components/PageMotion";
 
@@ -15,6 +15,8 @@ export function PostNavigation({ sections }: Props) {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(sections[0]?.id ?? "");
   const [showBackTop, setShowBackTop] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const updateNavigation = () => {
@@ -39,11 +41,36 @@ export function PostNavigation({ sections }: Props) {
     if (!open) return;
 
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
     };
 
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+
+      const focusable = menuRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    menuRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
     window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", trapFocus);
+    return () => {
+      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", trapFocus);
+    };
   }, [open]);
 
   useEffect(() => {
@@ -91,6 +118,7 @@ export function PostNavigation({ sections }: Props) {
       </aside>
 
       <button
+        ref={triggerRef}
         className={`mobile-nav${open ? " is-open" : ""}`}
         type="button"
         aria-label={open ? "关闭文章目录" : "打开文章目录"}
@@ -105,6 +133,7 @@ export function PostNavigation({ sections }: Props) {
       </button>
 
       <nav
+        ref={menuRef}
         id="mobile-menu-panel"
         className={`mobile-menu-panel${open ? " is-open" : ""}`}
         aria-label="移动端文章导航"

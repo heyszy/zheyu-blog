@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     template: "%s — Zheyu",
   },
   description: "关注 AI、产品与工程实践，记录新工具如何改变工作与创造。",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "zh_CN",

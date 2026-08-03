@@ -5,15 +5,25 @@ import path from "node:path";
 const nextConfig: NextConfig = {
   async headers() {
     const staticPageCache = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400";
+    const securityHeaders = [
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(), payment=(), usb=()" },
+    ];
 
     return [
       {
         source: "/",
-        headers: [{ key: "Cache-Control", value: staticPageCache }],
+        headers: [...securityHeaders, { key: "Cache-Control", value: staticPageCache }],
       },
       {
         source: "/posts/:path*",
-        headers: [{ key: "Cache-Control", value: staticPageCache }],
+        headers: [...securityHeaders, { key: "Cache-Control", value: staticPageCache }],
+      },
+      {
+        source: "/:path*",
+        headers: securityHeaders,
       },
     ];
   },
