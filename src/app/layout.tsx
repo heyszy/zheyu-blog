@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
+  Caveat,
   Inter,
-  La_Belle_Aurore,
   Libre_Caslon_Text,
 } from "next/font/google";
 import { PageMotionProvider } from "@/components/PageMotion";
@@ -13,10 +13,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const signature = La_Belle_Aurore({
+const signature = Caveat({
   variable: "--font-signature",
   subsets: ["latin"],
-  weight: "400",
+  weight: "variable",
   display: "swap",
 });
 
