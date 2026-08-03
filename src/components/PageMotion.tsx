@@ -48,14 +48,22 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
 
     paper.classList.remove("paper--leaving");
 
+    if (pathname === "/" && !returningHome.current) {
+      underlay.current?.remove();
+      underlay.current = null;
+      exitPaper.current?.remove();
+      exitPaper.current = null;
+      document.body.classList.remove("page-has-underlay", "page-has-exit-paper", "page-is-leaving");
+    }
+
     if (returningHome.current) {
       returningHome.current = false;
       leaving.current = false;
       requestAnimationFrame(() => {
         if (exitPaper.current) {
           const departingPaper = exitPaper.current;
-          const cleanUp = (event: AnimationEvent) => {
-            if (event.target !== departingPaper) return;
+          const cleanUp = () => {
+            window.clearTimeout(fallbackTimer);
 
             departingPaper.remove();
             exitPaper.current = null;
@@ -63,6 +71,7 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
             departingPaper.removeEventListener("animationend", cleanUp);
           };
 
+          const fallbackTimer = window.setTimeout(cleanUp, PAPER_EXIT_MS + 100);
           departingPaper.addEventListener("animationend", cleanUp);
           departingPaper.classList.add("paper--leaving");
           return;
@@ -147,8 +156,15 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
       }
 
       paper.classList.remove("paper--entering");
+      const navigate = () => {
+        window.clearTimeout(fallbackTimer);
+        paper.removeEventListener("animationend", navigate);
+        router.push(href);
+      };
+
+      const fallbackTimer = window.setTimeout(navigate, PAPER_EXIT_MS + 100);
+      paper.addEventListener("animationend", navigate);
       paper.classList.add("paper--leaving");
-      window.setTimeout(() => router.push(href), PAPER_EXIT_MS);
     },
     [router],
   );

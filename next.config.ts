@@ -4,14 +4,16 @@ import path from "node:path";
 
 const nextConfig: NextConfig = {
   async headers() {
+    const staticPageCache = "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400";
+
     return [
       {
         source: "/",
-        headers: [{ key: "Cache-Control", value: "no-store" }],
+        headers: [{ key: "Cache-Control", value: staticPageCache }],
       },
       {
         source: "/posts/:path*",
-        headers: [{ key: "Cache-Control", value: "no-store" }],
+        headers: [{ key: "Cache-Control", value: staticPageCache }],
       },
     ];
   },
