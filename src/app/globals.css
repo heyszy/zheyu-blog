@@ -103,13 +103,27 @@ button:focus-visible {
   will-change: transform, opacity;
 }
 
+.page-has-underlay .paper:not(.paper-transition-underlay) {
+  z-index: 2;
+}
+
+.paper-transition-underlay {
+  position: fixed;
+  z-index: 1;
+  min-height: 0;
+  margin: 0;
+  pointer-events: none;
+  transform: none;
+  will-change: auto;
+}
+
 .paper--entering {
-  animation: paper-float-in 780ms cubic-bezier(0.22, 0.78, 0.28, 1) both;
+  animation: paper-float-in 520ms cubic-bezier(0.22, 0.78, 0.28, 1) both;
 }
 
 .paper--leaving {
   pointer-events: none;
-  animation: paper-float-out 560ms cubic-bezier(0.55, 0, 0.78, 0.2) both;
+  animation: paper-float-out 420ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 .page-is-leaving .article-sidebar,

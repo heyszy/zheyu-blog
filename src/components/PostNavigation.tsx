@@ -4,14 +4,14 @@ import Link from "next/link";
 import { ArrowBendUpLeft, List, X } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import type { PostSection } from "@/content/posts";
-import { usePaperExit } from "@/components/PageMotion";
+import { usePaperMotion } from "@/components/PageMotion";
 
 type Props = {
   sections: PostSection[];
 };
 
 export function PostNavigation({ sections }: Props) {
-  const exitWithPaper = usePaperExit();
+  const { returnHome: exitWithPaper } = usePaperMotion();
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(sections[0]?.id ?? "");
   const [showBackTop, setShowBackTop] = useState(false);

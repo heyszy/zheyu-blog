@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PaperStackLink } from "@/components/PaperStackLink";
 import { posts } from "@/content/posts";
 
 export default function Home() {
@@ -22,11 +22,11 @@ export default function Home() {
         <ol className="post-list" aria-label="文章列表">
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link href={`/posts/${post.slug}`} scroll={false}>
+              <PaperStackLink href={`/posts/${post.slug}`}>
                 <span className="post-title">{post.title}</span>
                 <span className="leader" aria-hidden="true" />
                 <time dateTime={post.publishedAt}>{post.year}</time>
-              </Link>
+              </PaperStackLink>
             </li>
           ))}
         </ol>
