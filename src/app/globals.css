@@ -347,23 +347,13 @@ button:focus-visible {
 }
 
 .article-body h2 {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin: 72px 0 26px;
+  margin: 80px 0 20px;
   color: var(--ink);
   font-family: var(--font-serif), var(--font-wenkai), serif;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.5;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.35;
   scroll-margin-top: 28px;
-}
-
-.article-body h2::after {
-  height: 1px;
-  flex: 1;
-  border-bottom: 2px dotted var(--line);
-  content: "";
 }
 
 .article-body p {
@@ -614,9 +604,8 @@ body.mobile-menu-is-open {
   }
 
   .article-body h2 {
-    align-items: flex-start;
     margin-top: 62px;
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .article-sidebar {
