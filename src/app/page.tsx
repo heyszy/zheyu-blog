@@ -38,7 +38,7 @@ export default function Home() {
             <span aria-hidden="true"> · </span>
             <a href="https://github.com/heyszy" target="_blank" rel="noreferrer">GitHub</a>
             <span aria-hidden="true"> · </span>
-            <a href="https://github.com/heyszy/zheyu-blog" target="_blank" rel="noreferrer">Source: heyszy/zheyu-blog</a>
+            <a href="https://github.com/heyszy/zheyu-blog" target="_blank" rel="noreferrer">Source</a>
           </p>
           <p>© 2026 Zheyu. Built with curiosity.</p>
         </footer>

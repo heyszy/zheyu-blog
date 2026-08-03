@@ -262,10 +262,7 @@ button:focus-visible {
   font-family: var(--font-serif), var(--font-wenkai), serif;
   font-size: 18px;
   line-height: 1.45;
-}
-
-.post-list a:hover .post-title {
-  color: #0f0f0e;
+  transition: color 240ms ease;
 }
 
 .leader {
@@ -273,13 +270,38 @@ button:focus-visible {
   flex: 1;
   margin: 0 12px 5px;
   border-bottom: 2px dotted var(--line);
+  transition: border-color 240ms ease;
 }
 
 .post-list time {
   color: #96918b;
   font-family: var(--font-inter), sans-serif;
   font-size: 14px;
+  transition: color 240ms ease;
   white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .post-list:has(a:is(:hover, :focus-visible)) a {
+    color: #b7b3ad;
+  }
+
+  .post-list:has(a:is(:hover, :focus-visible)) time {
+    color: #cbc7c1;
+  }
+
+  .post-list:has(a:is(:hover, :focus-visible)) .leader {
+    border-color: #e8e5e0;
+  }
+
+  .post-list:has(a:is(:hover, :focus-visible)) a:is(:hover, :focus-visible),
+  .post-list:has(a:is(:hover, :focus-visible)) a:is(:hover, :focus-visible) time {
+    color: var(--openai-blue);
+  }
+
+  .post-list a:is(:hover, :focus-visible) .leader {
+    border-color: var(--openai-blue);
+  }
 }
 
 .site-footer {
