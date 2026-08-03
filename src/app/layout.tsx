@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import {
+  Crimson_Pro,
   Inter,
-  Libre_Caslon_Text,
   Sacramento,
 } from "next/font/google";
+import localFont from "next/font/local";
 import { PageMotionProvider } from "@/components/PageMotion";
 import "./globals.css";
 
@@ -20,9 +21,16 @@ const signature = Sacramento({
   display: "swap",
 });
 
-const serif = Libre_Caslon_Text({
+const serif = Crimson_Pro({
   variable: "--font-serif",
   subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
+});
+
+const wenkai = localFont({
+  src: "./fonts/lxgw-wenkai-zheyu.woff2",
+  variable: "--font-wenkai",
   weight: "400",
   display: "swap",
 });
@@ -59,7 +67,7 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${signature.variable} ${serif.variable}`}
+      className={`${inter.variable} ${signature.variable} ${serif.variable} ${wenkai.variable}`}
     >
       <body>
         <a className="skip-link" href="#main">

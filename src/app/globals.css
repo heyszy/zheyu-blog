@@ -29,7 +29,7 @@ body {
   overflow-x: clip;
   color: var(--ink);
   background-color: #fbfbfa;
-  font-family: var(--font-inter), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-inter), var(--font-wenkai), sans-serif;
   font-size: 16px;
   line-height: 1.65;
   text-rendering: optimizeLegibility;
@@ -259,7 +259,7 @@ button:focus-visible {
   align-items: baseline;
   min-height: 42px;
   color: var(--ink);
-  font-family: var(--font-serif), "Songti SC", STSong, serif;
+  font-family: var(--font-serif), var(--font-wenkai), serif;
   font-size: 16px;
   line-height: 1.45;
 }
@@ -325,7 +325,7 @@ button:focus-visible {
 .article-title {
   max-width: 540px;
   margin: 0;
-  font-family: var(--font-serif), "Songti SC", STSong, serif;
+  font-family: var(--font-serif), var(--font-wenkai), serif;
   font-size: 48px;
   font-weight: 400;
   line-height: 1.22;
@@ -350,7 +350,7 @@ button:focus-visible {
   gap: 12px;
   margin: 72px 0 26px;
   color: var(--ink);
-  font-family: var(--font-serif), "Songti SC", STSong, serif;
+  font-family: var(--font-serif), var(--font-wenkai), serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.5;
@@ -373,7 +373,7 @@ button:focus-visible {
   padding-left: 18px;
   border-left: 2px solid #d7d2cb;
   color: #706b64;
-  font-family: var(--font-serif), "Songti SC", STSong, serif;
+  font-family: var(--font-serif), var(--font-wenkai), serif;
   font-size: 17px;
 }
 
@@ -396,7 +396,7 @@ button:focus-visible {
   flex-direction: column;
   align-items: flex-start;
   color: #96918a;
-  font-family: var(--font-serif), "Songti SC", STSong, serif;
+  font-family: var(--font-serif), var(--font-wenkai), serif;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -471,7 +471,7 @@ button:focus-visible {
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  font-family: var(--font-inter), "PingFang SC", "Hiragino Sans GB", sans-serif;
+  font-family: var(--font-inter), var(--font-wenkai), sans-serif;
   opacity: 0;
   pointer-events: none;
   transition: opacity 220ms ease-out, visibility 0s linear 220ms;
@@ -527,7 +527,7 @@ body.mobile-menu-is-open {
 
 .not-found h1 {
   margin: 0;
-  font-family: var(--font-serif), serif;
+  font-family: var(--font-serif), var(--font-wenkai), serif;
   font-size: 56px;
   font-weight: 400;
 }
