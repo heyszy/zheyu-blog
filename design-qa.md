@@ -4,7 +4,7 @@
 
 - No actionable P0, P1, or P2 differences remain.
 - The signature uses OFL-licensed La Belle Aurore instead of the reference site's commercially licensed Biro Script. This is an intentional legal constraint, and the replacement preserves the handwritten scale, weight, and visual role.
-- App-specific copy is intentionally Chinese and describes Zheyu Shen rather than copying the reference site's identity or article content.
+- App-specific copy is intentionally Chinese and describes Zheyu rather than copying the reference site's identity or article content.
 
 ## Evidence
 
@@ -37,7 +37,7 @@
 - Spacing and layout rhythm: desktop paper is 840 px wide with a 560 px reading column; mobile uses 24 px side margins. Paper offset, intro spacing, dotted article rows, article rhythm, and responsive navigation follow the source.
 - Colors and tokens: warm white paper, faint gray grid, charcoal text, muted metadata, and dotted rules match the source's restrained neutral palette.
 - Image and asset quality: the source has no content imagery. Phosphor icons replace control glyphs with crisp library SVGs; no hotlinked or copied proprietary assets are used.
-- Copy and content: all identity and article copy is original Chinese content for Zheyu Shen; route labels and metadata agree with the rendered article.
+- Copy and content: all identity and article copy is original Chinese content for Zheyu; route labels and metadata agree with the rendered article.
 
 ## Comparison History
 

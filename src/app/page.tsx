@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main id="main" className="paper home-paper">
       <div className="home-content">
-        <h1 className="signature">Zheyu Shen</h1>
+        <h1 className="signature">Zheyu</h1>
 
         <div className="intro">
           <p>
@@ -33,7 +33,12 @@ export default function Home() {
 
         <footer className="site-footer">
           <span aria-hidden="true">—</span>
-          <p>© 2026 Zheyu Shen. Built with curiosity.</p>
+          <p className="social-links">
+            <a href="https://x.com/zheyuhl" target="_blank" rel="noreferrer">X</a>
+            <span aria-hidden="true"> · </span>
+            <a href="https://github.com/heyszy" target="_blank" rel="noreferrer">GitHub</a>
+          </p>
+          <p>© 2026 Zheyu. Built with curiosity.</p>
         </footer>
       </div>
     </main>

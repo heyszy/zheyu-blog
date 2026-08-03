@@ -7,6 +7,7 @@
   --line: #ddd9d3;
   --paper: #fff;
   --grid: rgba(120, 113, 108, 0.1);
+  --openai-blue: #3b82f6;
   --sidebar-width: clamp(220px, calc(27.273vw - 129.09px), 280px);
 }
 
@@ -290,6 +291,20 @@ button:focus-visible {
 
 .site-footer p {
   margin: 0;
+}
+
+.site-footer .social-links {
+  margin-bottom: 16px;
+}
+
+.social-links a {
+  border-bottom: 1px dotted currentColor;
+  transition: color 160ms ease;
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+  color: var(--openai-blue);
 }
 
 .article-content {

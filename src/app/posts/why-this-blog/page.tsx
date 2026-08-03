@@ -26,7 +26,7 @@ export default function PostPage() {
       <main id="main" className="paper">
         <article className="article-content">
           <p className="eyebrow">
-            Zheyu Shen · <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+            Zheyu · <time dateTime={post.publishedAt}>{post.publishedAt}</time>
           </p>
           <h1 className="article-title">{post.title}</h1>
           <p className="article-dek">{post.description}</p>

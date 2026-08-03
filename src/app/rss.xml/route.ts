@@ -31,7 +31,7 @@ export function GET() {
   const feed = `<?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0">
       <channel>
-        <title>Zheyu Shen</title>
+        <title>Zheyu</title>
         <link>https://zheyu.me</link>
         <description>关注 AI、产品与工程实践，记录新工具如何改变工作与创造。</description>
         <language>zh-CN</language>${items}

@@ -30,21 +30,21 @@ const serif = Libre_Caslon_Text({
 export const metadata: Metadata = {
   metadataBase: new URL("https://zheyu.me"),
   title: {
-    default: "Zheyu Shen",
-    template: "%s — Zheyu Shen",
+    default: "Zheyu",
+    template: "%s — Zheyu",
   },
   description: "关注 AI、产品与工程实践，记录新工具如何改变工作与创造。",
   openGraph: {
     type: "website",
     locale: "zh_CN",
     url: "https://zheyu.me",
-    siteName: "Zheyu Shen",
-    title: "Zheyu Shen",
+    siteName: "Zheyu",
+    title: "Zheyu",
     description: "关注 AI、产品与工程实践，记录新工具如何改变工作与创造。",
   },
   twitter: {
     card: "summary",
-    title: "Zheyu Shen",
+    title: "Zheyu",
     description: "关注 AI、产品与工程实践，记录新工具如何改变工作与创造。",
   },
 };
