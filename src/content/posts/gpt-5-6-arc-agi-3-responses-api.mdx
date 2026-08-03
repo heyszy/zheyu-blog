@@ -1,0 +1,73 @@
+同一个模型，同一个测试，不改提示词，只调整两个 API 设置，成绩能差多少？
+
+OpenAI 给出的答案是：接近三倍。
+
+在 ARC-AGI-3 公开任务集上，GPT-5.6 Sol 使用官方评测框架时得分为 13.3%；换成保留推理并启用上下文压缩的 Responses API 框架后，得分升到 38.3%，输出 Token 反而减少到原来的六分之一。
+
+显然，模型本身没有变化，变化发生在模型之外，准确地说，发生在 Harness，也就是负责组织上下文、调用模型和执行动作的运行框架里。
+
+<h2 id="arc-agi-3">ARC-AGI-3 是什么</h2>
+
+ARC-AGI-3 并非常见的问答考试，而是考验模型面对一个新游戏时“玩游戏的能力”。模型会进入一个陌生的二维游戏，只能看到每一帧的文字表示和当前关卡，没有规则说明，也不知道评分方式。它需要一边尝试动作，一边从反馈中推断游戏机制。
+
+这个测试考验的不是能否一次回答对问题，而是模型能否在连续行动中积累认知。它可能先猜测蓝色方块是开关，尝试后发现没有反应；接着注意到角色移动会改变某个图案，再调整策略。每一次动作都建立在前面的观察和判断上。
+
+OpenAI 最初看到 GPT-5.6 Sol 的成绩时觉得很反常。这个模型最近刚证明了“循环双覆盖猜想”，通关了宝可梦火红，能玩杀戮尖塔 2，为什么在 2D 益智游戏里表现得像是不会思考？
+
+在检查运行记录后，问题清楚了：并非模型解不出题，而是它在每走一步之后都会忘掉一部分刚刚发生的事。
+
+<h2 id="official-harness">ARC-AGI-3 官方 Harness 让模型反复失忆</h2>
+
+ARC-AGI-3 官方 Harness 中存在两个设置：
+
+其一，每次游戏动作执行后，模型的内部推理都会被丢弃。下一轮仍然能看到过去做了哪些动作，以及简要说明，却看不到动作背后的假设、判断和思考过程。它知道自己按过按钮，却不再知道为什么按，也不记得当时排除了哪些可能。
+
+其二，当上下文超过 175,000 个字符后，Harness 会从最早的消息开始删除。任务运行得越久，早期观察和动作消失得越多。
+
+这两个机制叠在一起，模型一方面丢失了行动背后的推理，另一方面连行动记录也会逐渐丢失。一个需要持续学习的任务，被切成了许多相互脱节的单步问答。
+
+这也解释了为什么 GPT-5.6 Sol 在每一步上花了很多 Token，却很难推进。它无法在过去的经验上继续探索，只能反复重新理解同一个游戏。
+
+<h2 id="two-settings">两个设置改变了什么</h2>
+
+ChatGPT 模型在输出回复或工具调用之前，会先进行内部推理。这些内部推理信息会作为对话历史记录的一部分被保留下来。如果对话过长，GPT 会对其进行总结并继续进行。
+
+为了更匹配生产环境的场景，OpenAI 用 Responses API 重新实现了 ARC-AGI-3 的 Harness，并启用了 retained reasoning 和 compaction 两项能力。
+
+Retained reasoning 可以译作“保留推理”。在 GPT-5.6 中，应用通过 `previous_response_id` 继续请求，并让 `reasoning.context` 使用 `all_turns` 时，先前可用的 reasoning items 可以进入后续推理上下文。模型不必在每个动作之后重新建立对游戏的全部认识。
+
+这里有一个容易误解的地方。API 并不会把模型的原始思维链明文交给开发者。官方文档把 reasoning items 描述为不透明的上下文对象，开发者可以保留和传递它们，但看不到其中的原始推理文本。无状态或零数据保留场景下，Responses API 还可以返回加密后的 reasoning items，由应用在后续请求中原样回传。
+
+Compaction 解决的是另一类遗忘。启用服务端压缩后，当上下文达到设定的 `compact_threshold`，Responses API 会执行压缩并生成一个不透明的 compaction item。这个对象用更少的 Token 携带此前的关键状态和 reasoning，供后续请求继续使用，而不是简单删除最早的消息。
+
+开启这两项能力后，GPT-5.6 Sol 每一步花在重复推理上的时间更少，策略也更连贯。在 ARC-AGI-3 公开任务集上，它的得分从 13.3% 升至 38.3%，输出 Token 减少约六倍。
+
+<h2 id="think">把 {"<think>"} 发回去，效果不是一样吗</h2>
+
+很多开发者看到这里会问：Chat Completions API 也能保存历史消息。如果模型输出了 `<think>...</think>`，下一轮把这段文字一起发回去，不就相当于保留推理了吗？
+
+它们不是同一种东西。
+
+写在 `<think>` 标签里的内容，只要已经作为文本返回给应用，本质上就是普通消息。下一轮把它发回模型，模型当然可以参考，但它得到的是一段可见文本，不是 Responses API 中不透明的 reasoning item。两者的表示方式、生命周期和模型使用方式都不同。
+
+更重要的是，OpenAI 的闭源推理模型不会通过 API 返回原始思维链。开发者能拿到的可能是回答、推理摘要，或需要原样传递的加密内容，不能把它们和模型内部完整的推理过程画等号。
+
+因此，自己让模型写一段“思考摘要”并保存，仍然有价值。它适合记录任务目标、已完成事项、失败原因和下一步计划，但它属于应用层工作记忆，不是 retained reasoning 的替代品。
+
+<h2 id="agents">Agents 如果能记住自己做过的事情，就能发挥出最佳水平</h2>
+
+“模型能力等于模型乘以 Harness”是一个很有吸引力的说法，但更准确的表达是：我们在产品和评测里观察到的能力，由模型、提示词、上下文管理、工具、环境反馈和评分方法共同决定。
+
+ARC-AGI-3 的实验并不是说所有任务都能靠两个设置提升三倍，而是说在需要长时间探索和积累经验的任务里，一个不断丢失推理与行动历史的 Harness，会严重低估模型能发挥出的能力。
+
+过去做 AI 应用，很多团队把主要精力放在提示词上。长程 Agent 带来的新问题更像系统工程：如何保存状态，如何压缩历史，如何让工具结果回到正确的位置，如何在中断后恢复，以及如何证明任务真的完成。
+
+模型很重要，怎么让模型连续工作，同样重要。
+
+<h2 id="references">参考资料</h2>
+
+- [OpenAI：How enabling two settings tripled our scores on the ARC-AGI-3 benchmark](https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores/)
+- [OpenAI：Migrate to the Responses API](https://developers.openai.com/api/docs/guides/migrate-to-responses)
+- [OpenAI：Reasoning models](https://developers.openai.com/api/docs/guides/reasoning)
+- [OpenAI：Conversation state](https://developers.openai.com/api/docs/guides/conversation-state)
+- [OpenAI：Compaction](https://developers.openai.com/api/docs/guides/compaction)

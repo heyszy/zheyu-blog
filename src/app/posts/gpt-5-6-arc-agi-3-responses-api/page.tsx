@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PostPage } from "@/components/PostPage";
 import { getPost } from "@/content/posts";
 
-const post = getPost("why-this-blog")!;
+const post = getPost("gpt-5-6-arc-agi-3-responses-api")!;
 
 export const metadata: Metadata = {
   title: post.title,
@@ -17,6 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WhyThisBlogPage() {
+export default function Gpt56ArcAgi3ResponsesApiPage() {
   return <PostPage post={post} />;
 }
