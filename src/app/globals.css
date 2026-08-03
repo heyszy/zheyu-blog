@@ -237,9 +237,9 @@ button:focus-visible {
 .intro {
   margin-top: 68px;
   color: #68655f;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 440;
-  line-height: 1.65;
+  line-height: 1.75;
 }
 
 .intro p {
@@ -260,7 +260,7 @@ button:focus-visible {
   min-height: 42px;
   color: var(--ink);
   font-family: var(--font-serif), var(--font-wenkai), serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.45;
 }
 
@@ -326,7 +326,7 @@ button:focus-visible {
   max-width: 540px;
   margin: 0;
   font-family: var(--font-serif), var(--font-wenkai), serif;
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 400;
   line-height: 1.22;
   letter-spacing: -0.025em;
@@ -335,13 +335,15 @@ button:focus-visible {
 .article-dek {
   margin: 88px 0 0;
   color: #5f5b55;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.75;
 }
 
 .article-body {
   margin-top: 48px;
   color: #54514b;
+  font-size: 17px;
+  line-height: 1.8;
 }
 
 .article-body h2 {
@@ -599,7 +601,7 @@ body.mobile-menu-is-open {
   }
 
   .article-title {
-    font-size: 40px;
+    font-size: 34px;
     line-height: 1.23;
   }
 
