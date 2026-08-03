@@ -14,6 +14,18 @@ export const metadata: Metadata = {
     description: post.description,
     publishedTime: post.publishedAt,
     url: `/posts/${post.slug}`,
+    images: [
+      {
+        url: "/images/gpt-5-6-arc-agi-3-responses-api/wechat-cover-handdrawn.png",
+        width: 1923,
+        height: 818,
+        alt: "GPT5.6 的两项重要设置",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/gpt-5-6-arc-agi-3-responses-api/wechat-cover-handdrawn.png"],
   },
 };
 

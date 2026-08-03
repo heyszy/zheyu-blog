@@ -400,6 +400,24 @@ button:focus-visible {
   margin-bottom: 10px;
 }
 
+.article-body figure {
+  margin: 38px 0 42px;
+}
+
+.article-body figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.article-body figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .article-sidebar {
   position: fixed;
   z-index: 10;

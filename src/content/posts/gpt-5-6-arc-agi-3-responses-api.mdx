@@ -10,6 +10,11 @@ OpenAI 给出的答案是：接近三倍。
 
 ARC-AGI-3 并非常见的问答考试，而是考验模型面对一个新游戏时“玩游戏的能力”。模型会进入一个陌生的二维游戏，只能看到每一帧的文字表示和当前关卡，没有规则说明，也不知道评分方式。它需要一边尝试动作，一边从反馈中推断游戏机制。
 
+<figure>
+  <img src="/images/gpt-5-6-arc-agi-3-responses-api/ARC-AGI-3.png" width="2816" height="1912" alt="ARC-AGI-3 交互式推理基准展示" />
+  <figcaption>ARC-AGI-3 通过一组陌生的交互式游戏，测试 AI Agent 能否在行动中推断规则。图片来源：ARC Prize 官网。</figcaption>
+</figure>
+
 这个测试考验的不是能否一次回答对问题，而是模型能否在连续行动中积累认知。它可能先猜测蓝色方块是开关，尝试后发现没有反应；接着注意到角色移动会改变某个图案，再调整策略。每一次动作都建立在前面的观察和判断上。
 
 OpenAI 最初看到 GPT-5.6 Sol 的成绩时觉得很反常。这个模型最近刚证明了“循环双覆盖猜想”，通关了宝可梦火红，能玩杀戮尖塔 2，为什么在 2D 益智游戏里表现得像是不会思考？
@@ -39,6 +44,11 @@ Retained reasoning 可以译作“保留推理”。在 GPT-5.6 中，应用通�
 这里有一个容易误解的地方。API 并不会把模型的原始思维链明文交给开发者。官方文档把 reasoning items 描述为不透明的上下文对象，开发者可以保留和传递它们，但看不到其中的原始推理文本。无状态或零数据保留场景下，Responses API 还可以返回加密后的 reasoning items，由应用在后续请求中原样回传。
 
 Compaction 解决的是另一类遗忘。启用服务端压缩后，当上下文达到设定的 `compact_threshold`，Responses API 会执行压缩并生成一个不透明的 compaction item。这个对象用更少的 Token 携带此前的关键状态和 reasoning，供后续请求继续使用，而不是简单删除最早的消息。
+
+<figure>
+  <img src="/images/gpt-5-6-arc-agi-3-responses-api/How_GPT-5.6_Sol_reasons_over_long_tasks_desktop_light.svg" width="596" height="467" alt="GPT-5.6 Sol 在长任务中的推理与上下文压缩过程" />
+  <figcaption>长任务达到上下文压缩阈值后，GPT-5.6 Sol 保留关键状态并继续调用工具与推理。图片来源：OpenAI。</figcaption>
+</figure>
 
 开启这两项能力后，GPT-5.6 Sol 每一步花在重复推理上的时间更少，策略也更连贯。在 ARC-AGI-3 公开任务集上，它的得分从 13.3% 升至 38.3%，输出 Token 减少约六倍。
 

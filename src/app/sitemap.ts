@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: "https://zheyu.me",
-      lastModified: "2026-08-03",
+      lastModified: "2026-08-04",
       changeFrequency: "monthly",
       priority: 1,
     },
