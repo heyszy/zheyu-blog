@@ -46,6 +46,11 @@ export function PostNavigation({ sections }: Props) {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [open]);
 
+  useEffect(() => {
+    document.body.classList.toggle("mobile-menu-is-open", open);
+    return () => document.body.classList.remove("mobile-menu-is-open");
+  }, [open]);
+
   const backToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setOpen(false);
@@ -86,34 +91,38 @@ export function PostNavigation({ sections }: Props) {
       </aside>
 
       <button
-        className="mobile-nav"
+        className={`mobile-nav${open ? " is-open" : ""}`}
         type="button"
         aria-label={open ? "关闭文章目录" : "打开文章目录"}
         aria-expanded={open}
         aria-controls="mobile-menu-panel"
         onClick={() => setOpen((value) => !value)}
       >
-        {open ? <X aria-hidden="true" size={23} weight="light" /> : <List aria-hidden="true" size={24} weight="light" />}
+        <span className="mobile-nav-icon" aria-hidden="true">
+          <List className="mobile-nav-list-icon" size={24} weight="light" />
+          <X className="mobile-nav-close-icon" size={23} weight="light" />
+        </span>
       </button>
 
-      {open ? (
-        <nav id="mobile-menu-panel" className="mobile-menu-panel" aria-label="移动端文章导航">
-          <Link href="/" onClick={(event) => {
-            setOpen(false);
-            returnHome(event);
-          }}>
-            首页
-          </Link>
-          {sections.map((section) => (
-            <a key={section.id} href={`#${section.id}`} onClick={() => setOpen(false)}>
-              {section.label}
-            </a>
-          ))}
-          <button type="button" onClick={backToTop}>
-            返回顶部
-          </button>
-        </nav>
-      ) : null}
+      <nav
+        id="mobile-menu-panel"
+        className={`mobile-menu-panel${open ? " is-open" : ""}`}
+        aria-label="移动端文章导航"
+        aria-hidden={!open}
+        inert={!open}
+      >
+        <Link href="/" onClick={(event) => {
+          setOpen(false);
+          returnHome(event);
+        }}>
+          首页
+        </Link>
+        {sections.map((section) => (
+          <a key={section.id} href={`#${section.id}`} onClick={() => setOpen(false)}>
+            {section.label}
+          </a>
+        ))}
+      </nav>
     </>
   );
 }
