@@ -43,6 +43,18 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
   const exitPaper = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    const prepareBrowserReturnHome = () => {
+      if (window.location.pathname !== "/") return;
+
+      returningHome.current = true;
+      document.body.classList.add("page-is-returning-home");
+    };
+
+    window.addEventListener("popstate", prepareBrowserReturnHome);
+    return () => window.removeEventListener("popstate", prepareBrowserReturnHome);
+  }, []);
+
+  useEffect(() => {
     const paper = document.querySelector<HTMLElement>(".paper:not(.paper-transition-underlay):not(.paper-transition-exit)");
     if (!paper) return;
 
@@ -53,10 +65,11 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
       underlay.current = null;
       exitPaper.current?.remove();
       exitPaper.current = null;
-      document.body.classList.remove("page-has-underlay", "page-has-exit-paper", "page-is-leaving");
+      document.body.classList.remove("page-has-underlay", "page-has-exit-paper", "page-is-leaving", "page-is-returning-home");
     }
 
     if (returningHome.current) {
+      paper.classList.remove("paper--entering", "home-text--entering");
       returningHome.current = false;
       leaving.current = false;
       requestAnimationFrame(() => {
@@ -67,7 +80,7 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
 
             departingPaper.remove();
             exitPaper.current = null;
-            document.body.classList.remove("page-has-exit-paper", "page-is-leaving");
+            document.body.classList.remove("page-has-exit-paper", "page-is-leaving", "page-is-returning-home");
             departingPaper.removeEventListener("animationend", cleanUp);
           };
 
@@ -79,7 +92,7 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
 
         underlay.current?.remove();
         underlay.current = null;
-        document.body.classList.remove("page-has-underlay", "page-is-leaving");
+        document.body.classList.remove("page-has-underlay", "page-is-leaving", "page-is-returning-home");
       });
       return;
     }
@@ -145,7 +158,7 @@ export function PageMotionProvider({ children }: { children: React.ReactNode }) 
 
       leaving.current = true;
       returningHome.current = true;
-      document.body.classList.add("page-is-leaving");
+      document.body.classList.add("page-is-leaving", "page-is-returning-home");
 
       if (!underlay.current) {
         exitPaper.current?.remove();

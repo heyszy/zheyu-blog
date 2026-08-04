@@ -3,7 +3,7 @@ import { posts } from "@/content/posts";
 
 export default function Home() {
   return (
-    <main id="main" className="paper home-paper">
+    <main id="main" className="paper home-paper paper--entering home-text--entering">
       <div className="home-content">
         <h1 className="signature">Zheyu</h1>
 

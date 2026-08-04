@@ -7,7 +7,7 @@ export function PostPage({ post }: { post: Post }) {
   return (
     <>
       <PostNavigation sections={post.sections} />
-      <main id="main" className="paper">
+      <main id="main" className="paper paper--entering">
         <article className="article-content">
           <p className="eyebrow">
             Zheyu · <time dateTime={post.publishedAt}>{post.publishedAt}</time>
