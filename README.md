@@ -13,14 +13,13 @@ pnpm dev
 ## 校验与部署
 
 ```bash
-pnpm font:subset # 修改 src/ 中的可见文案后运行，并提交更新后的字体文件
 pnpm lint
 pnpm build
 pnpm preview
 pnpm run deploy
 ```
 
-`pnpm font:check` 会在 CI、预览和部署前确认字体子集已覆盖当前文本；若失败，先运行 `pnpm font:subset` 并提交新的 WOFF2。`pnpm run deploy` 会构建并发布 Worker `zheyu-blog`；生产域名为 [zheyu.me](https://zheyu.me)。
+`pnpm run deploy` 会构建并发布 Worker `zheyu-blog`；生产域名为 [zheyu.me](https://zheyu.me)。
 
 ## 新文章
 
