@@ -8,15 +8,8 @@ export default function Home() {
         <h1 className="signature">Zheyu</h1>
 
         <div className="intro">
-          <p>
-            关注 AI、产品与工程实践，也关心技术如何改变我们的工作方式，以及人与世界的关系。
-          </p>
-          <p>
-            在这里记录新工具、新产品，以及一个想法从出现到真正被做出来的完整过程。
-          </p>
-          <p>
-            偶尔也写投资、生活，和那些值得在快速变化中长期思考的问题。
-          </p>
+          <p>全栈工程师，正在冲煮新鲜咖啡 ☕️</p>
+          <p>期待 AGI 的到来。</p>
         </div>
 
         <ol className="post-list" aria-label="文章列表">
