@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "font:subset": "bash scripts/subset-wenkai.sh",
+    "font:check": "bash scripts/subset-wenkai.sh --check",
+    "preview": "pnpm font:check && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "pnpm font:check && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "pnpm font:check && opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
