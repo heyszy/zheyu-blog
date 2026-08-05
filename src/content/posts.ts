@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import ClaudeContextEngineeringNewRules from "./posts/claude-context-engineering-new-rules.mdx";
 import Gpt56ArcAgi3ResponsesApi from "./posts/gpt-5-6-arc-agi-3-responses-api.mdx";
 
 export type PostSection = {
@@ -17,6 +18,20 @@ export type Post = {
 };
 
 export const posts: Post[] = [
+  {
+    slug: "claude-context-engineering-new-rules",
+    title: "给 Opus5 删掉 80% 系统提示词",
+    description: "Anthropic 团队删掉 Claude Code 系统提示词超过 80% 的内容，编程测试没有出现可衡量的性能下降。",
+    publishedAt: "2026-07-30",
+    year: "2026",
+    sections: [
+      { id: "context", label: "提示词只是上下文" },
+      { id: "principles", label: "六条上下文工程原则" },
+      { id: "change", label: "我们该如何改变" },
+      { id: "focus", label: "上下文工程的重点" },
+    ],
+    Content: ClaudeContextEngineeringNewRules,
+  },
   {
     slug: "gpt-5-6-arc-agi-3-responses-api",
     title: "GPT5.6 的两项重要设置",
