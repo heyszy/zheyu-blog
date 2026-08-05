@@ -1,4 +1,5 @@
 import type { Post } from "@/content/posts";
+import { ArticleImageLightbox } from "@/components/ArticleImageLightbox";
 import { PostNavigation } from "@/components/PostNavigation";
 
 export function PostPage({ post }: { post: Post }) {
@@ -15,7 +16,9 @@ export function PostPage({ post }: { post: Post }) {
           <h1 className="article-title">{post.title}</h1>
           <p className="article-dek">{post.description}</p>
           <div className="article-body">
-            <Content />
+            <ArticleImageLightbox>
+              <Content />
+            </ArticleImageLightbox>
           </div>
         </article>
       </main>
